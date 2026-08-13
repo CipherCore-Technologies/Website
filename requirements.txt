@@ -1,0 +1,4 @@
+flask
+gunicorn
+# flask-sqlalchemy    # Uncomment when ready for database
+# psycopg2-binary     # Uncomment when ready for PostgreSQL
