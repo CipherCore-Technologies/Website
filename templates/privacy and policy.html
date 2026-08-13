@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — CipherCore Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0B0D12;
+            --ink-soft: #4B5566;
+            --paper: #F6F7F9;
+            --paper-raised: #FFFFFF;
+            --line: #E1E4E9;
+            --blue: #1D5FE0;
+            --blue-deep: #0D2E73;
+            --mono: 'IBM Plex Mono', monospace;
+            --display: 'Space Grotesk', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body);
+            background-color: var(--paper);
+            color: var(--ink);
+            line-height: 1.8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+        }
+
+        /* ---------- Header ---------- */
+        header {
+            background: var(--ink);
+            color: #ffffff;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .companynamelogo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0.9rem 0;
+        }
+
+        #logo {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #6FA8FF;
+            box-shadow: 0 0 20px rgba(111, 168, 255, 0.3);
+        }
+
+        .brand-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.15;
+        }
+
+        .brand-row {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            font-family: var(--display);
+        }
+
+        .brand-row .cipher {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .brand-row .core {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6FA8FF;
+        }
+
+        .technologies {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: #8A93A3;
+            letter-spacing: 2.5px;
+            margin-top: 2px;
+        }
+
+        /* ---------- Navigation (Desktop) ---------- */
+        .navigation {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .navigation a {
+            color: #C4C9D4;
+            text-decoration: none;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .navigation a:hover {
+            color: #FFFFFF;
+            border-bottom-color: #6FA8FF;
+        }
+
+        .navigation a.active {
+            color: #FFFFFF;
+            border-bottom-color: #6FA8FF;
+        }
+
+        /* ---------- Hamburger Button ---------- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #FFFFFF;
+            transition: 0.3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ---------- Side Navigation (Mobile) ---------- */
+        .side-nav {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100vh;
+            background: var(--ink);
+            padding: 5rem 2rem 2rem;
+            transition: right 0.3s ease;
+            z-index: 150;
+            overflow-y: auto;
+            border-left: 1px solid #262B36;
+        }
+
+        .side-nav.open {
+            right: 0;
+        }
+
+        .side-nav a {
+            display: block;
+            color: #C4C9D4;
+            text-decoration: none;
+            padding: 12px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 1px solid #262B36;
+            transition: color 0.2s ease;
+        }
+
+        .side-nav a:hover {
+            color: #6FA8FF;
+        }
+
+        /* ---------- Overlay ---------- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 140;
+        }
+
+        .overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ---------- Trace divider ---------- */
+        .trace {
+            height: 2px;
+            background: var(--ink);
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .trace::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: var(--line);
+        }
+
+        .trace span {
+            position: relative;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--blue);
+        }
+
+        .trace span:nth-child(1) { margin-left: 6%; }
+        .trace span:nth-child(2) { margin-left: 28%; }
+        .trace span:nth-child(3) { margin-left: 41%; }
+
+        main {
+            flex: 1;
+        }
+
+        /* ---------- Section shell ---------- */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* ---------- Privacy Page ---------- */
+        .privacy-content {
+            background: var(--paper-raised);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            border-radius: 4px;
+        }
+
+        .privacy-content h1 {
+            font-family: var(--display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-content .last-updated {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--ink-soft);
+            margin-bottom: 2.5rem;
+            display: block;
+        }
+
+        .privacy-content h2 {
+            font-family: var(--display);
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.3px;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .privacy-content p {
+            font-size: 1rem;
+            color: var(--ink-soft);
+            margin-bottom: 0.8rem;
+        }
+
+        .privacy-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0.8rem;
+        }
+
+        .privacy-content ul li {
+            font-size: 1rem;
+            color: var(--ink-soft);
+            padding: 0.2rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .privacy-content ul li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+        }
+
+        .privacy-content .contact-email {
+            color: var(--blue);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .privacy-content .contact-email:hover {
+            border-bottom-color: var(--blue);
+        }
+
+        .privacy-content .policy-note {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--line);
+            font-size: 0.9rem;
+            color: var(--ink-soft);
+            font-style: italic;
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background: var(--ink);
+            color: #8A93A3;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #262B36;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.6rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-content a {
+            color: #C4C9D4;
+            text-decoration: none;
+            font-size: 0.88rem;
+        }
+
+        .footer-content a:hover {
+            color: #6FA8FF;
+        }
+
+        .footer-bottom {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: #5A6272;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .privacy-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navigation {
+                display: none;
+            }
+        }
+
+        @media (max-width: 560px) {
+            header {
+                padding: 0 1.2rem;
+            }
+
+            .companynamelogo {
+                align-self: flex-start;
+            }
+
+            section {
+                padding: 2.5rem 1.2rem;
+            }
+
+            .privacy-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .privacy-content h2 {
+                font-size: 1.2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .side-nav {
+                width: 240px;
+                right: -240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="companynamelogo">
+            <img src="static/images/WhatsApp Image 2026-08-10 at 21.00.40.jpeg"
+                 id="logo"
+                 alt="CipherCore Technologies logo"
+                 onerror="this.src='https://via.placeholder.com/50/0B0D12/6FA8FF?text=CC'">
+            <div class="brand-wrapper">
+                <div class="brand-row">
+                    <span class="cipher">Cipher</span><span class="core">Core</span>
+                </div>
+                <span class="technologies">TECHNOLOGIES</span>
+            </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Hamburger Button -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="trace"><span></span><span></span><span></span></div>
+
+    <main>
+        <section class="privacy-content">
+            <div class="section-inner">
+                <h1>Privacy Policy</h1>
+                <span class="last-updated">Last updated: August 2026</span>
+
+                <p>CipherCore Technologies ("we," "our," or "us") respects your privacy and is committed to protecting any personal information you share with us. This Privacy Policy explains what information we collect, how we use it, and your rights regarding that information.</p>
+
+                <h2>1. Information We Collect</h2>
+                <p>When you contact us through our website's contact form, we may collect:</p>
+                <ul>
+                    <li>Your name</li>
+                    <li>Your email address</li>
+                    <li>Any details you include in your message</li>
+                </ul>
+                <p>We do not currently collect payment information, account data, or use tracking cookies on this website.</p>
+
+                <h2>2. How We Use Your Information</h2>
+                <p>We use the information you provide only to:</p>
+                <ul>
+                    <li>Respond to your inquiries</li>
+                    <li>Discuss and deliver projects you request from us</li>
+                    <li>Maintain a record of client communication</li>
+                </ul>
+                <p>We do not sell, rent, or share your personal information with third parties for marketing purposes.</p>
+
+                <h2>3. Data Storage</h2>
+                <p>Information submitted through our contact form is stored securely and accessed only by CipherCore Technologies' founders. We take reasonable measures to protect your data from unauthorized access.</p>
+
+                <h2>4. Third-Party Services</h2>
+                <p>As our services grow, we may use third-party tools (such as email providers or analytics services) to support our operations. If this policy changes as a result, we will update this page accordingly.</p>
+
+                <h2>5. Your Rights</h2>
+                <p>You may contact us at any time to:</p>
+                <ul>
+                    <li>Request a copy of the information we hold about you</li>
+                    <li>Request correction or deletion of your information</li>
+                    <li>Withdraw consent for us to contact you</li>
+                </ul>
+
+                <h2>6. Contact Us</h2>
+                <p>If you have any questions about this Privacy Policy or how your information is handled, contact us at:</p>
+                <p><a href="mailto:ciphercoretechzw@proton.me" class="contact-email">ciphercoretechzw@proton.me</a></p>
+
+                <div class="policy-note">
+                    <p><strong>Note:</strong> This is a starting template, not a lawyer-reviewed document. If you ever add payment processing, user accounts, or analytics/cookies, this policy will need updating. We recommend reviewing it with a qualified professional once you're handling real client data or payments.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="blog.html">Blog</a>
+                <a href="faq.html">FAQ</a>
+                <a href="careers.html">Careers</a>
+                <a href="privacy and policy.html">Privacy Policy</a>
+            </div>
+            <span class="footer-bottom">© 2026 CipherCore Technologies</span>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburgerBtn');
+        const sideNav = document.getElementById('sideNav');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('open');
+            sideNav.classList.toggle('open');
+            overlay.classList.toggle('open');
+            document.body.style.overflow = sideNav.classList.contains('open') ? 'hidden' : '';
+        }
+
+        function closeMenu() {
+            hamburger.classList.remove('open');
+            sideNav.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        document.querySelectorAll('.side-nav a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sideNav.classList.contains('open')) {
+                closeMenu();
+            }
+        });
+    </script>
+</body>
+</html>
