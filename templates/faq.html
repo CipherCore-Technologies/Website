@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ — CipherCore Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0B0D12;
+            --ink-soft: #4B5566;
+            --paper: #F6F7F9;
+            --paper-raised: #FFFFFF;
+            --line: #E1E4E9;
+            --blue: #1D5FE0;
+            --blue-deep: #0D2E73;
+            --mono: 'IBM Plex Mono', monospace;
+            --display: 'Space Grotesk', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body);
+            background-color: var(--paper);
+            color: var(--ink);
+            line-height: 1.8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+        }
+
+        /* ---------- Header ---------- */
+        header {
+            background: var(--ink);
+            color: #ffffff;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .companynamelogo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0.9rem 0;
+        }
+
+        #logo {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #6FA8FF;
+            box-shadow: 0 0 20px rgba(111, 168, 255, 0.3);
+        }
+
+        .brand-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.15;
+        }
+
+        .brand-row {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            font-family: var(--display);
+        }
+
+        .brand-row .cipher {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .brand-row .core {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6FA8FF;
+        }
+
+        .technologies {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: #8A93A3;
+            letter-spacing: 2.5px;
+            margin-top: 2px;
+        }
+
+        /* ---------- Navigation (Desktop) ---------- */
+        .navigation {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .navigation a {
+            color: #C4C9D4;
+            text-decoration: none;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .navigation a:hover {
+            color: #FFFFFF;
+            border-bottom-color: #6FA8FF;
+        }
+
+        .navigation a.active {
+            color: #FFFFFF;
+            border-bottom-color: #6FA8FF;
+        }
+
+        /* ---------- Hamburger Button ---------- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #FFFFFF;
+            transition: 0.3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ---------- Side Navigation (Mobile) ---------- */
+        .side-nav {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100vh;
+            background: var(--ink);
+            padding: 5rem 2rem 2rem;
+            transition: right 0.3s ease;
+            z-index: 150;
+            overflow-y: auto;
+            border-left: 1px solid #262B36;
+        }
+
+        .side-nav.open {
+            right: 0;
+        }
+
+        .side-nav a {
+            display: block;
+            color: #C4C9D4;
+            text-decoration: none;
+            padding: 12px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 1px solid #262B36;
+            transition: color 0.2s ease;
+        }
+
+        .side-nav a:hover {
+            color: #6FA8FF;
+        }
+
+        .side-nav a.active {
+            color: #6FA8FF;
+        }
+
+        /* ---------- Overlay ---------- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 140;
+        }
+
+        .overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ---------- Trace divider ---------- */
+        .trace {
+            height: 2px;
+            background: var(--ink);
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .trace::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: var(--line);
+        }
+
+        .trace span {
+            position: relative;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--blue);
+        }
+
+        .trace span:nth-child(1) { margin-left: 6%; }
+        .trace span:nth-child(2) { margin-left: 28%; }
+        .trace span:nth-child(3) { margin-left: 41%; }
+
+        main {
+            flex: 1;
+        }
+
+        /* ---------- Section shell ---------- */
+        section {
+            padding: 4rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--blue);
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        /* ---------- FAQ Page ---------- */
+        .faq-content {
+            background: var(--paper-raised);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            border-radius: 4px;
+        }
+
+        .faq-content h1 {
+            font-family: var(--display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-content .faq-intro {
+            font-size: 1.15rem;
+            color: var(--ink-soft);
+            margin-bottom: 2.5rem;
+            max-width: 60ch;
+        }
+
+        .faq-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item .question {
+            font-family: var(--display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .faq-item .question .number {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--blue);
+            font-weight: 400;
+            min-width: 30px;
+        }
+
+        .faq-item .answer {
+            font-size: 1rem;
+            color: var(--ink-soft);
+            padding-left: 38px;
+        }
+
+        .faq-item .answer a {
+            color: var(--blue);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .faq-item .answer a:hover {
+            border-bottom-color: var(--blue);
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background: var(--ink);
+            color: #8A93A3;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #262B36;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.6rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-content a {
+            color: #C4C9D4;
+            text-decoration: none;
+            font-size: 0.88rem;
+        }
+
+        .footer-content a:hover {
+            color: #6FA8FF;
+        }
+
+        .footer-bottom {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: #5A6272;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .faq-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navigation {
+                display: none;
+            }
+
+            .faq-item .answer {
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 560px) {
+            header {
+                padding: 0 1.2rem;
+            }
+
+            .companynamelogo {
+                align-self: flex-start;
+            }
+
+            section {
+                padding: 2.5rem 1.2rem;
+            }
+
+            .faq-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .faq-item .question {
+                font-size: 1rem;
+            }
+
+            .faq-item .answer {
+                font-size: 0.95rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .side-nav {
+                width: 240px;
+                right: -240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="companynamelogo">
+            <img src="static/images/WhatsApp Image 2026-08-10 at 21.00.40.jpeg"
+                 id="logo"
+                 alt="CipherCore Technologies logo"
+                 onerror="this.src='https://via.placeholder.com/50/0B0D12/6FA8FF?text=CC'">
+            <div class="brand-wrapper">
+                <div class="brand-row">
+                    <span class="cipher">Cipher</span><span class="core">Core</span>
+                </div>
+                <span class="technologies">TECHNOLOGIES</span>
+            </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Hamburger Button -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="trace"><span></span><span></span><span></span></div>
+
+    <main>
+        <section class="faq-content">
+            <div class="section-inner">
+                <h1>Frequently Asked Questions</h1>
+                <p class="faq-intro">Answers to common questions about working with CipherCore Technologies.</p>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span class="number">01</span>
+                        What services do you offer?
+                    </div>
+                    <div class="answer">We build websites, custom software, management systems, and portals for businesses, schools, and organizations. See our <a href="services.html">Services</a> page for full details.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span class="number">02</span>
+                        How much do your projects cost?
+                    </div>
+                    <div class="answer">Pricing depends on the size and complexity of the project. Reach out with your idea and we'll give you a free, no-obligation quote.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span class="number">03</span>
+                        How long does a typical project take?
+                    </div>
+                    <div class="answer">Timelines vary depending on scope, but most small-to-medium projects are delivered within a few weeks. We'll give you a clear timeline before starting any work.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span class="number">04</span>
+                        Do you offer support after a project is delivered?
+                    </div>
+                    <div class="answer">Yes — we offer ongoing support and maintenance after launch. Details are agreed on a per-project basis.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span class="number">05</span>
+                        Can you build something that isn't listed on your Products page?
+                    </div>
+                    <div class="answer">Likely, yes. If it's practical software, tell us what you need and we'll let you know if it's something we can build.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span class="number">06</span>
+                        How do I get started?
+                    </div>
+                    <div class="answer"><a href="contact.html">Contact us</a> with a short description of your project, and we'll respond to set up a time to talk it through.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span class="number">07</span>
+                        Do you work with clients outside your local area?
+                    </div>
+                    <div class="answer">Yes — we can work remotely with clients anywhere, communicating by email or video call throughout the project.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="blog.html">Blog</a>
+                <a href="faq.html">FAQ</a>
+                <a href="careers.html">Careers</a>
+                <a href="privacy and policy.html">Privacy Policy</a>
+            </div>
+            <span class="footer-bottom">© 2026 CipherCore Technologies</span>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburgerBtn');
+        const sideNav = document.getElementById('sideNav');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('open');
+            sideNav.classList.toggle('open');
+            overlay.classList.toggle('open');
+            document.body.style.overflow = sideNav.classList.contains('open') ? 'hidden' : '';
+        }
+
+        function closeMenu() {
+            hamburger.classList.remove('open');
+            sideNav.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        document.querySelectorAll('.side-nav a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sideNav.classList.contains('open')) {
+                closeMenu();
+            }
+        });
+    </script>
+</body>
+</html>
