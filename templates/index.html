@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CipherCore Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0B0D12;
+            --ink-soft: #4B5566;
+            --paper: #F6F7F9;
+            --paper-raised: #FFFFFF;
+            --line: #E1E4E9;
+            --blue: #1D5FE0;
+            --blue-deep: #0D2E73;
+            --mono: 'IBM Plex Mono', monospace;
+            --display: 'Space Grotesk', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body);
+            background-color: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+        }
+
+        /* ---------- Header ---------- */
+        header {
+            background: var(--ink);
+            color: #ffffff;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .companynamelogo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0.9rem 0;
+        }
+
+        #logo {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #6FA8FF;
+            box-shadow: 0 0 20px rgba(111, 168, 255, 0.3);
+        }
+
+        .brand-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.15;
+        }
+
+        .brand-row {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            font-family: var(--display);
+        }
+
+        .brand-row .cipher {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .brand-row .core {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6FA8FF;
+        }
+
+        .technologies {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: #8A93A3;
+            letter-spacing: 2.5px;
+            margin-top: 2px;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .navigation a {
+            color: #C4C9D4;
+            text-decoration: none;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .navigation a:hover {
+            color: #FFFFFF;
+            border-bottom-color: #6FA8FF;
+        }
+
+        /* ---------- Trace divider (signature element) ---------- */
+        .trace {
+            height: 2px;
+            background: var(--ink);
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .trace::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: var(--line);
+        }
+
+        .trace span {
+            position: relative;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--blue);
+        }
+
+        .trace span:nth-child(1) { margin-left: 6%; }
+        .trace span:nth-child(2) { margin-left: 28%; }
+        .trace span:nth-child(3) { margin-left: 41%; }
+
+        main {
+            flex: 1;
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            padding: 5.5rem 2rem 4.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero .eyebrow {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--blue);
+            letter-spacing: 1.5px;
+            margin-bottom: 1.1rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-family: var(--display);
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.08;
+            color: var(--ink);
+            letter-spacing: -0.5px;
+        }
+
+        .hero .subheadline {
+            font-size: 1.15rem;
+            color: var(--ink-soft);
+            margin: 1.2rem 0 1.6rem;
+            max-width: 46ch;
+        }
+
+        .hero .cta-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--ink);
+            color: #ffffff;
+            padding: 13px 26px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--blue);
+            transform: translateY(-1px);
+        }
+
+        .cta-secondary {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 2px;
+        }
+
+        .cta-secondary:hover {
+            color: var(--ink);
+            border-color: var(--ink);
+        }
+
+        /* Hero signature graphic */
+        .hero-graphic {
+            aspect-ratio: 1;
+            position: relative;
+        }
+
+        .hero-graphic svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ---------- Section shell ---------- */
+        section {
+            padding: 3.5rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--blue);
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        h2 {
+            font-family: var(--display);
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: var(--ink);
+            letter-spacing: -0.3px;
+        }
+
+        /* ---------- Who We Are ---------- */
+        .who-we-are {
+            background: var(--paper-raised);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .who-we-are .section-inner {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 3rem;
+        }
+
+        .who-we-are p {
+            font-size: 1.05rem;
+            color: var(--ink-soft);
+            max-width: 60ch;
+        }
+
+        /* ---------- What We Do ---------- */
+        .services-grid {
+            margin-top: 1.8rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--line);
+            border-left: 1px solid var(--line);
+        }
+
+        .service-item {
+            padding: 1.6rem 1.4rem;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            font-size: 0.98rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .service-item .tag {
+            display: block;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--ink-soft);
+            letter-spacing: 1px;
+            margin-bottom: 0.6rem;
+        }
+
+        /* ---------- Why Choose Us ---------- */
+        .why-choose {
+            background: var(--paper-raised);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .why-grid {
+            margin-top: 1.8rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .why-item {
+            padding-top: 1rem;
+            border-top: 2px solid var(--ink);
+        }
+
+        .why-item p {
+            font-size: 0.94rem;
+            color: var(--ink-soft);
+        }
+
+        /* ---------- Closing CTA ---------- */
+        .closing-cta {
+            background: var(--ink);
+            text-align: left;
+        }
+
+        .closing-cta .section-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .closing-cta h2 {
+            color: #FFFFFF;
+            font-size: 1.7rem;
+        }
+
+        .closing-cta .section-label {
+            color: #6FA8FF;
+        }
+
+        .closing-cta .cta-button {
+            background: #6FA8FF;
+            color: var(--ink);
+        }
+
+        .closing-cta .cta-button:hover {
+            background: #FFFFFF;
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background: var(--ink);
+            color: #8A93A3;
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #262B36;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.6rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-content a {
+            color: #C4C9D4;
+            text-decoration: none;
+            font-size: 0.88rem;
+        }
+
+        .footer-content a:hover {
+            color: #6FA8FF;
+        }
+
+        .footer-bottom {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: #5A6272;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 3.5rem 1.5rem 3rem;
+            }
+
+            .hero-graphic {
+                max-width: 220px;
+                order: -1;
+            }
+
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .who-we-are .section-inner {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .closing-cta .section-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 560px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 1.2rem;
+            }
+
+            .companynamelogo {
+                align-self: flex-start;
+            }
+
+            .navigation {
+                width: 100%;
+                padding-bottom: 0.6rem;
+                justify-content: center;
+            }
+
+            .navigation a {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+
+            section {
+                padding: 2.5rem 1.2rem;
+            }
+
+            .services-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="companynamelogo">
+            <img src="C:\Users\Itai Vera\Desktop\CipherCore Technologies\website\static\images\WhatsApp Image 2026-08-10 at 21.00.40.jpeg"
+                 id="logo"
+                 alt="CipherCore Technologies logo"
+                 onerror="this.src='https://via.placeholder.com/50/0B0D12/6FA8FF?text=CC'">
+            <div class="brand-wrapper">
+                <div class="brand-row">
+                    <span class="cipher">Cipher</span><span class="core">Core</span>
+                </div>
+                <span class="technologies">TECHNOLOGIES</span>
+            </div>
+        </div>
+        <nav class="navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+    <div class="trace"><span></span><span></span><span></span></div>
+
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">// CIPHERCORE TECHNOLOGIES</span>
+                <h1>The core of your digital future, built on code you can trust.</h1>
+                <p class="subheadline">We design and build software solutions — from websites to management systems — for businesses and institutions ready to go digital.</p>
+                <div class="cta-row">
+                    <a href="contact.html" class="cta-button">Get a Free Quote</a>
+                    <a href="portfolio.html" class="cta-secondary">See our work →</a>
+                </div>
+            </div>
+            <div class="hero-graphic" aria-hidden="true">
+                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="70" stroke="#E1E4E9" stroke-width="1.5"/>
+                    <path d="M100 30 A70 70 0 0 1 100 170" stroke="#0B0D12" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M100 55 A45 45 0 0 1 100 145" stroke="#1D5FE0" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="100" cy="100" r="7" fill="#1D5FE0"/>
+                    <line x1="107" y1="100" x2="150" y2="100" stroke="#1D5FE0" stroke-width="2"/>
+                    <line x1="150" y1="100" x2="150" y2="80" stroke="#1D5FE0" stroke-width="2"/>
+                    <circle cx="150" cy="80" r="3" fill="#0B0D12"/>
+                    <line x1="130" y1="100" x2="130" y2="125" stroke="#1D5FE0" stroke-width="2"/>
+                    <circle cx="130" cy="125" r="3" fill="#0B0D12"/>
+                </svg>
+            </div>
+        </section>
+
+        <div class="trace"><span></span><span></span><span></span></div>
+
+        <!-- Who We Are -->
+        <section class="who-we-are">
+            <div class="section-inner">
+                <div>
+                    <span class="section-label">01 — WHO WE ARE</span>
+                    <h2>Two developers, one standard.</h2>
+                </div>
+                <p>CipherCore Technologies is a software development company built by developers who understand what businesses actually need — reliable, functional, and affordable digital solutions. We're new, driven, and focused on getting it right.</p>
+            </div>
+        </section>
+
+        <!-- What We Do -->
+        <section class="what-we-do">
+            <div class="section-inner">
+                <span class="section-label">02 — WHAT WE DO</span>
+                <h2>Where we can help</h2>
+                <div class="services-grid">
+                    <div class="service-item"><span class="tag">DEV</span>Web Development</div>
+                    <div class="service-item"><span class="tag">DEV</span>Custom Software</div>
+                    <div class="service-item"><span class="tag">SYSTEMS</span>School &amp; Business Portals</div>
+                    <div class="service-item"><span class="tag">SYSTEMS</span>Management Systems</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="why-choose">
+            <div class="section-inner">
+                <span class="section-label">03 — WHY CIPHERCORE</span>
+                <h2>What working with us looks like</h2>
+                <div class="why-grid">
+                    <div class="why-item">
+                        <p>Affordable, tailored solutions — no bloated pricing</p>
+                    </div>
+                    <div class="why-item">
+                        <p>Direct communication with the people building your product</p>
+                    </div>
+                    <div class="why-item">
+                        <p>Modern, secure development practices</p>
+                    </div>
+                    <div class="why-item">
+                        <p>Fast turnaround for small-to-medium projects</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Closing CTA -->
+        <section class="closing-cta">
+            <div class="section-inner">
+                <div>
+                    <span class="section-label">GET STARTED</span>
+                    <h2>Have an idea? Let's build it together.</h2>
+                </div>
+                <a href="contact.html" class="cta-button">Contact Us</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="blog.html">Blog</a>
+                <a href="faq.html">FAQ</a>
+                <a href="careers.html">Careers</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+            <span class="footer-bottom">© 2026 CipherCore Technologies</span>
+        </div>
+    </footer>
+</body>
+</html>
