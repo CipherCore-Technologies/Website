@@ -315,46 +315,181 @@
             max-width: 50ch;
         }
 
-        /* ---------- Products List ---------- */
-        .products-list {
+        /* ---------- Product Carousel ---------- */
+        .products-carousel {
             background: var(--paper-raised);
             border-top: 1px solid var(--line);
             border-bottom: 1px solid var(--line);
+            overflow: hidden;
+            position: relative;
         }
 
-        .product-item {
-            padding: 2.5rem 0;
-            border-bottom: 1px solid var(--line);
-            display: grid;
-            grid-template-columns: 1fr 2.5fr;
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             gap: 2rem;
+            padding: 2rem 0;
         }
 
-        .product-item:last-child {
-            border-bottom: none;
+        .carousel-track.paused {
+            transition: none;
         }
 
-        .product-item .product-number {
+        .product-card {
+            flex: 0 0 calc(33.333% - 1.333rem);
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 2rem 1.5rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 4px 20px rgba(29, 95, 224, 0.08);
+        }
+
+        .product-card .product-number {
             font-family: var(--mono);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--blue);
             letter-spacing: 1.5px;
             display: block;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
         }
 
-        .product-item h3 {
+        .product-card h3 {
             font-family: var(--display);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: var(--ink);
             letter-spacing: -0.2px;
+            margin-bottom: 0.6rem;
         }
 
-        .product-item p {
-            font-size: 1.02rem;
+        .product-card p {
+            font-size: 0.95rem;
             color: var(--ink-soft);
-            max-width: 52ch;
+            line-height: 1.6;
+        }
+
+        .product-card .enquire-link {
+            display: inline-block;
+            margin-top: 1rem;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--blue);
+            text-decoration: none;
+            border-bottom: 1px solid var(--blue);
+            padding-bottom: 2px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .product-card .enquire-link:hover {
+            color: var(--ink);
+            border-color: var(--ink);
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 0.5rem 0 2rem 0;
+        }
+
+        .carousel-btn {
+            background: none;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.3s ease, background 0.3s ease;
+            font-size: 1.2rem;
+            color: var(--ink-soft);
+        }
+
+        .carousel-btn:hover {
+            border-color: var(--blue);
+            background: rgba(29, 95, 224, 0.05);
+            color: var(--blue);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            background: var(--line);
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: var(--blue);
+            transform: scale(1.2);
+        }
+
+        .carousel-dot:hover {
+            background: var(--blue);
+            transform: scale(1.1);
+        }
+
+        .carousel-status {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--ink-soft);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        /* ---------- Closing Note ---------- */
+        .closing-note {
+            background: var(--paper);
+        }
+
+        .closing-note .section-inner {
+            text-align: center;
+        }
+
+        .closing-note p {
+            font-size: 1.15rem;
+            color: var(--ink-soft);
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .closing-note .cta-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--blue);
+            text-decoration: none;
+            border-bottom: 1px solid var(--blue);
+            padding-bottom: 2px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .closing-note .cta-link:hover {
+            color: var(--ink);
+            border-color: var(--ink);
         }
 
         /* ---------- Footer ---------- */
@@ -403,17 +538,10 @@
                 font-size: 2.4rem;
             }
 
-            .product-item {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-                padding: 2rem 0;
+            .product-card {
+                flex: 0 0 calc(50% - 1rem);
             }
 
-            .product-item p {
-                max-width: 100%;
-            }
-
-            /* Show hamburger on tablet and below */
             .hamburger {
                 display: flex;
             }
@@ -444,12 +572,20 @@
                 font-size: 2rem;
             }
 
-            .product-item h3 {
-                font-size: 1.2rem;
+            .product-card {
+                flex: 0 0 100%;
+                padding: 1.5rem;
             }
 
-            .product-item p {
-                font-size: 0.95rem;
+            .carousel-track {
+                gap: 1rem;
+                padding: 1.5rem 0;
+            }
+
+            .carousel-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
             }
 
             .footer-content {
@@ -521,40 +657,80 @@
 
         <div class="trace"><span></span><span></span><span></span></div>
 
-        <!-- Products List -->
-        <section class="products-list">
+        <!-- Product Carousel -->
+        <section class="products-carousel">
             <div class="section-inner">
-                <div class="product-item">
-                    <div>
-                        <span class="product-number">01</span>
-                        <h3>School Portals</h3>
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Product 1 -->
+                        <div class="product-card">
+                            <span class="product-number">01</span>
+                            <h3>School Portals</h3>
+                            <p>Student management, results/records, communication between staff, students, and parents — built for schools and institutions.</p>
+                            <a href="contact.html" class="enquire-link">Enquire →</a>
+                        </div>
+                        <!-- Product 2 -->
+                        <div class="product-card">
+                            <span class="product-number">02</span>
+                            <h3>Websites</h3>
+                            <p>Business websites, portfolios, e-commerce — clean, modern, mobile-friendly.</p>
+                            <a href="contact.html" class="enquire-link">Enquire →</a>
+                        </div>
+                        <!-- Product 3 -->
+                        <div class="product-card">
+                            <span class="product-number">03</span>
+                            <h3>Management Systems</h3>
+                            <p>Inventory, staff, customer, or operations management systems tailored to your business processes.</p>
+                            <a href="contact.html" class="enquire-link">Enquire →</a>
+                        </div>
+                        <!-- Product 4 -->
+                        <div class="product-card">
+                            <span class="product-number">04</span>
+                            <h3>Hospital &amp; Clinic Systems</h3>
+                            <p>Patient records, appointments, billing, and inventory for healthcare facilities.</p>
+                            <a href="contact.html" class="enquire-link">Enquire →</a>
+                        </div>
+                        <!-- Product 5 -->
+                        <div class="product-card">
+                            <span class="product-number">05</span>
+                            <h3>Retail POS Systems</h3>
+                            <p>Point-of-sale, inventory tracking, sales reporting, and customer management.</p>
+                            <a href="contact.html" class="enquire-link">Enquire →</a>
+                        </div>
+                        <!-- Product 6 -->
+                        <div class="product-card">
+                            <span class="product-number">06</span>
+                            <h3>Farming &amp; Agriculture Systems</h3>
+                            <p>Crop planning, supply chain tracking, weather integration, and produce management.</p>
+                            <a href="contact.html" class="enquire-link">Enquire →</a>
+                        </div>
+                        <!-- Product 7 -->
+                        <div class="product-card">
+                            <span class="product-number">07</span>
+                            <h3>NGO &amp; Donor Management</h3>
+                            <p>Beneficiary tracking, donor records, reporting, and compliance tools.</p>
+                            <a href="contact.html" class="enquire-link">Enquire →</a>
+                        </div>
                     </div>
-                    <p>Student management, results/records, communication between staff, students, and parents — built for schools and institutions.</p>
                 </div>
 
-                <div class="product-item">
-                    <div>
-                        <span class="product-number">02</span>
-                        <h3>Websites</h3>
-                    </div>
-                    <p>Business websites, portfolios, e-commerce — clean, modern, mobile-friendly.</p>
+                <!-- Controls -->
+                <div class="carousel-controls">
+                    <button class="carousel-btn" id="prevBtn" aria-label="Previous">‹</button>
+                    <div class="carousel-dots" id="carouselDots"></div>
+                    <span class="carousel-status" id="carouselStatus">1 / 7</span>
+                    <button class="carousel-btn" id="nextBtn" aria-label="Next">›</button>
                 </div>
+            </div>
+        </section>
 
-                <div class="product-item">
-                    <div>
-                        <span class="product-number">03</span>
-                        <h3>Management Systems</h3>
-                    </div>
-                    <p>Inventory, staff, customer, or operations management systems tailored to your business processes.</p>
-                </div>
+        <div class="trace"><span></span><span></span><span></span></div>
 
-                <div class="product-item">
-                    <div>
-                        <span class="product-number">04</span>
-                        <h3>Custom Software Solutions</h3>
-                    </div>
-                    <p>Have something specific in mind? From booking systems to internal tools — if it's practical software (not full operating systems or extremely heavy infrastructure), we're up for the challenge.</p>
-                </div>
+        <!-- Closing Note -->
+        <section class="closing-note">
+            <div class="section-inner">
+                <p>Don't see what you need? If it's practical software, chances are we can build it.</p>
+                <a href="contact.html" class="cta-link">Contact us →</a>
             </div>
         </section>
     </main>
@@ -594,17 +770,183 @@
         hamburger.addEventListener('click', toggleMenu);
         overlay.addEventListener('click', closeMenu);
 
-        // Close menu when a link is clicked
         document.querySelectorAll('.side-nav a').forEach(link => {
             link.addEventListener('click', closeMenu);
         });
 
-        // Close menu on escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && sideNav.classList.contains('open')) {
                 closeMenu();
             }
         });
+
+        // ---------- Carousel Logic ----------
+        const track = document.getElementById('carouselTrack');
+        const cards = track.querySelectorAll('.product-card');
+        const totalCards = cards.length;
+        let currentIndex = 0;
+        let cardsPerView = 3;
+        let autoSlideInterval = null;
+        const autoSlideDelay = 4000;
+        let isPaused = false;
+
+        // Update cardsPerView based on screen width
+        function updateCardsPerView() {
+            if (window.innerWidth < 560) {
+                return 1;
+            } else if (window.innerWidth < 860) {
+                return 2;
+            } else {
+                return 3;
+            }
+        }
+
+        // Get the gap value from CSS
+        function getGap() {
+            return 2; // rem gap from CSS
+        }
+
+        // Update the carousel position
+        function updateCarousel() {
+            cardsPerView = updateCardsPerView();
+            const maxIndex = Math.max(0, totalCards - cardsPerView);
+            // Clamp currentIndex
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+            }
+            if (currentIndex < 0) {
+                currentIndex = 0;
+            }
+
+            const cardWidth = cards[0].offsetWidth;
+            const gap = getGap() * 16; // convert rem to px (assuming 1rem = 16px)
+            const offset = currentIndex * (cardWidth + gap);
+            track.style.transform = `translateX(-${offset}px)`;
+
+            updateDots();
+            updateStatus();
+        }
+
+        // Update dots
+        function updateDots() {
+            const dots = document.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Update status text
+        function updateStatus() {
+            const statusEl = document.getElementById('carouselStatus');
+            statusEl.textContent = `${currentIndex + 1} / ${totalCards}`;
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+            cardsPerView = updateCardsPerView();
+            const maxIndex = Math.max(0, totalCards - cardsPerView);
+            if (index < 0) index = 0;
+            if (index > maxIndex) index = maxIndex;
+            currentIndex = index;
+            updateCarousel();
+        }
+
+        // Next slide
+        function nextSlide() {
+            cardsPerView = updateCardsPerView();
+            const maxIndex = Math.max(0, totalCards - cardsPerView);
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Loop back to start
+            }
+            updateCarousel();
+        }
+
+        // Previous slide
+        function prevSlide() {
+            cardsPerView = updateCardsPerView();
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                const maxIndex = Math.max(0, totalCards - cardsPerView);
+                currentIndex = maxIndex; // Loop to end
+            }
+            updateCarousel();
+        }
+
+        // Create dots
+        function createDots() {
+            const dotsContainer = document.getElementById('carouselDots');
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalCards; i++) {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot';
+                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                dot.dataset.index = i;
+                dot.addEventListener('click', () => {
+                    goToSlide(i);
+                    resetAutoSlide();
+                });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Start auto-slide
+        function startAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+            }
+            autoSlideInterval = setInterval(() => {
+                if (!isPaused) {
+                    nextSlide();
+                }
+            }, autoSlideDelay);
+        }
+
+        // Reset auto-slide timer
+        function resetAutoSlide() {
+            startAutoSlide();
+        }
+
+        // Pause on hover
+        const carouselWrapper = document.querySelector('.carousel-wrapper');
+        carouselWrapper.addEventListener('mouseenter', () => {
+            isPaused = true;
+            track.style.transition = 'none';
+        });
+        carouselWrapper.addEventListener('mouseleave', () => {
+            isPaused = false;
+            track.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        });
+
+        // Event listeners for controls
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            prevSlide();
+            resetAutoSlide();
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            nextSlide();
+            resetAutoSlide();
+        });
+
+        // Handle resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                updateCarousel();
+            }, 200);
+        });
+
+        // Initialize
+        createDots();
+        // Wait for layout to settle then set initial position
+        setTimeout(() => {
+            updateCarousel();
+            startAutoSlide();
+        }, 100);
     </script>
 </body>
 </html>
