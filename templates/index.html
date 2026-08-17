@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio — CipherCore Technologies</title>
+    <title>CipherCore Technologies</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -264,9 +264,94 @@
             flex: 1;
         }
 
+        /* ---------- Hero ---------- */
+        .hero {
+            padding: 5.5rem 2rem 4.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero .eyebrow {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--blue);
+            letter-spacing: 1.5px;
+            margin-bottom: 1.1rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-family: var(--display);
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1.08;
+            color: var(--ink);
+            letter-spacing: -0.5px;
+        }
+
+        .hero .subheadline {
+            font-size: 1.15rem;
+            color: var(--ink-soft);
+            margin: 1.2rem 0 1.6rem;
+            max-width: 46ch;
+        }
+
+        .hero .cta-row {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--ink);
+            color: #ffffff;
+            padding: 13px 26px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: background 0.2s ease, transform 0.15s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--blue);
+            transform: translateY(-1px);
+        }
+
+        .cta-secondary {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 2px;
+        }
+
+        .cta-secondary:hover {
+            color: var(--ink);
+            border-color: var(--ink);
+        }
+
+        /* Hero signature graphic */
+        .hero-graphic {
+            aspect-ratio: 1;
+            position: relative;
+        }
+
+        .hero-graphic svg {
+            width: 100%;
+            height: 100%;
+        }
+
         /* ---------- Section shell ---------- */
         section {
-            padding: 4rem 2rem;
+            padding: 3.5rem 2rem;
         }
 
         .section-inner {
@@ -289,187 +374,108 @@
             font-weight: 600;
             color: var(--ink);
             letter-spacing: -0.3px;
-            margin-bottom: 0.5rem;
         }
 
-        /* ---------- Portfolio Hero ---------- */
-        .portfolio-hero {
-            padding: 5rem 2rem 4rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .portfolio-hero h1 {
-            font-family: var(--display);
-            font-size: 3.2rem;
-            font-weight: 700;
-            line-height: 1.08;
-            color: var(--ink);
-            letter-spacing: -0.5px;
-            margin-bottom: 1.2rem;
-        }
-
-        .portfolio-hero .subheadline {
-            font-size: 1.15rem;
-            color: var(--ink-soft);
-            max-width: 50ch;
-        }
-
-        /* ---------- Projects ---------- */
-        .projects {
+        /* ---------- Who We Are ---------- */
+        .who-we-are {
             background: var(--paper-raised);
             border-top: 1px solid var(--line);
             border-bottom: 1px solid var(--line);
         }
 
-        .project-grid {
-            margin-top: 2rem;
+        .who-we-are .section-inner {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 3rem;
         }
 
-        .project-card {
-            padding: 2rem;
-            border: 1px solid var(--line);
-            border-radius: 4px;
-            background: var(--paper);
-        }
-
-        .project-card .badge {
-            display: inline-block;
-            font-family: var(--mono);
-            font-size: 0.65rem;
-            color: var(--blue);
-            letter-spacing: 1px;
-            background: rgba(29, 95, 224, 0.08);
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            margin-bottom: 0.8rem;
-        }
-
-        .project-card .badge.current {
-            background: rgba(29, 95, 224, 0.15);
-            color: var(--blue);
-        }
-
-        .project-card h3 {
-            font-family: var(--display);
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--ink);
-            margin-bottom: 0.4rem;
-        }
-
-        .project-card .project-type {
-            font-family: var(--mono);
-            font-size: 0.75rem;
+        .who-we-are p {
+            font-size: 1.05rem;
             color: var(--ink-soft);
+            max-width: 60ch;
+        }
+
+        /* ---------- What We Do ---------- */
+        .services-grid {
+            margin-top: 1.8rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--line);
+            border-left: 1px solid var(--line);
+        }
+
+        .service-item {
+            padding: 1.6rem 1.4rem;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            font-size: 0.98rem;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .service-item .tag {
+            display: block;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            color: var(--ink-soft);
+            letter-spacing: 1px;
             margin-bottom: 0.6rem;
         }
 
-        .project-card p {
-            font-size: 0.95rem;
-            color: var(--ink-soft);
-        }
-
-        .project-card .tech-stack {
-            margin-top: 0.8rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .project-card .tech-stack span {
-            font-family: var(--mono);
-            font-size: 0.7rem;
-            color: var(--ink-soft);
-            background: var(--paper-raised);
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            border: 1px solid var(--line);
-        }
-
-        .project-card .project-link {
-            display: inline-block;
-            margin-top: 0.8rem;
-            font-family: var(--mono);
-            font-size: 0.8rem;
-            color: var(--blue);
-            text-decoration: none;
-            border-bottom: 1px solid var(--blue);
-            padding-bottom: 2px;
-            transition: color 0.2s ease, border-color 0.2s ease;
-        }
-
-        .project-card .project-link:hover {
-            color: var(--ink);
-            border-color: var(--ink);
-        }
-
-        /* ---------- Case Studies ---------- */
-        .case-studies {
-            background: var(--paper);
-            border-top: 1px solid var(--line);
-        }
-
-        .case-studies .section-inner {
-            text-align: center;
-        }
-
-        .case-studies p {
-            font-size: 1.05rem;
-            color: var(--ink-soft);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .case-studies .cta-link {
-            display: inline-block;
-            margin-top: 1.5rem;
-            font-family: var(--mono);
-            font-size: 0.85rem;
-            color: var(--blue);
-            text-decoration: none;
-            border-bottom: 1px solid var(--blue);
-            padding-bottom: 2px;
-            transition: color 0.2s ease, border-color 0.2s ease;
-        }
-
-        .case-studies .cta-link:hover {
-            color: var(--ink);
-            border-color: var(--ink);
-        }
-
-        /* ---------- Technologies ---------- */
-        .technologies-section {
+        /* ---------- Why Choose Us ---------- */
+        .why-choose {
             background: var(--paper-raised);
             border-top: 1px solid var(--line);
             border-bottom: 1px solid var(--line);
         }
 
-        .tech-grid {
-            margin-top: 2rem;
+        .why-grid {
+            margin-top: 1.8rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .why-item {
+            padding-top: 1rem;
+            border-top: 2px solid var(--ink);
+        }
+
+        .why-item p {
+            font-size: 0.94rem;
+            color: var(--ink-soft);
+        }
+
+        /* ---------- Closing CTA ---------- */
+        .closing-cta {
+            background: var(--ink);
+            text-align: left;
+        }
+
+        .closing-cta .section-inner {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            gap: 0.8rem;
-            justify-content: center;
+            gap: 1.5rem;
         }
 
-        .tech-tag {
-            font-family: var(--mono);
-            font-size: 0.82rem;
+        .closing-cta h2 {
+            color: #FFFFFF;
+            font-size: 1.7rem;
+        }
+
+        .closing-cta .section-label {
+            color: #6FA8FF;
+        }
+
+        .closing-cta .cta-button {
+            background: #6FA8FF;
             color: var(--ink);
-            background: var(--paper);
-            padding: 0.5rem 1.2rem;
-            border-radius: 20px;
-            border: 1px solid var(--line);
-            transition: border-color 0.2s ease, color 0.2s ease;
         }
 
-        .tech-tag:hover {
-            border-color: var(--blue);
-            color: var(--blue);
+        .closing-cta .cta-button:hover {
+            background: #FFFFFF;
         }
 
         /* ---------- Footer ---------- */
@@ -518,12 +524,36 @@
 
         /* ---------- Responsive ---------- */
         @media (max-width: 860px) {
-            .portfolio-hero h1 {
-                font-size: 2.4rem;
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 3.5rem 1.5rem 3rem;
             }
 
-            .project-grid {
+            .hero-graphic {
+                max-width: 220px;
+                order: -1;
+            }
+
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+
+            .who-we-are .section-inner {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .closing-cta .section-inner {
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             /* Show hamburger on tablet and below */
@@ -549,25 +579,9 @@
                 padding: 2.5rem 1.2rem;
             }
 
-            .portfolio-hero {
-                padding: 3rem 1.2rem 2.5rem;
-            }
-
-            .portfolio-hero h1 {
-                font-size: 2rem;
-            }
-
-            .project-card {
-                padding: 1.5rem;
-            }
-
-            .tech-grid {
-                gap: 0.6rem;
-            }
-
-            .tech-tag {
-                font-size: 0.75rem;
-                padding: 0.4rem 1rem;
+            .services-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
             }
 
             .footer-content {
@@ -599,11 +613,11 @@
 
         <!-- Desktop Navigation -->
         <nav class="navigation">
-            <a href="index.html">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="about.html">About</a>
             <a href="services.html">Services</a>
             <a href="products.html">Products</a>
-            <a href="portfolio.html" class="active">Portfolio</a>
+            <a href="portfolio.html">Portfolio</a>
             <a href="contact.html">Contact</a>
         </nav>
 
@@ -620,95 +634,100 @@
 
     <!-- Side Navigation -->
     <nav class="side-nav" id="sideNav">
-        <a href="index.html">Home</a>
+        <a href="index.html" class="active">Home</a>
         <a href="about.html">About</a>
         <a href="services.html">Services</a>
         <a href="products.html">Products</a>
-        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="portfolio.html">Portfolio</a>
         <a href="contact.html">Contact</a>
     </nav>
 
     <div class="trace"><span></span><span></span><span></span></div>
 
     <main>
-        <!-- Portfolio Hero -->
-        <section class="portfolio-hero">
-            <h1>Our work.</h1>
-            <p class="subheadline">We're a new company — but here's what we're working on and capable of.</p>
-        </section>
-
-        <div class="trace"><span></span><span></span><span></span></div>
-
-        <!-- Projects -->
-        <section class="projects">
-            <div class="section-inner">
-                <span class="section-label">01 — PROJECTS</span>
-                <h2>What we're building.</h2>
-                <div class="project-grid">
-                    <!-- School Portal -->
-                    <div class="project-card">
-                        <span class="badge current">CURRENTLY BUILDING</span>
-                        <h3>School Portal</h3>
-                        <div class="project-type">Web Application</div>
-                        <p>A school portal for high schools to digitalize student records and results in Binga. Built to streamline administration and improve communication between schools, students, and parents.</p>
-                        <div class="tech-stack">
-                            <span>Python</span>
-                            <span>Flask</span>
-                            <span>MySQL</span>
-                            <span>HTML</span>
-                            <span>CSS</span>
-                        </div>
-                    </div>
-
-                    <!-- Innovation Hub -->
-                    <div class="project-card">
-                        <span class="badge">COLLABORATIVE PROJECT</span>
-                        <h3>Innovation Hub Platform</h3>
-                        <div class="project-type">Web Platform</div>
-                        <p>Collaborated with peers to design and implement an innovation hub platform that encourages idea sharing and project incubation within the university community.</p>
-                        <div class="tech-stack">
-                            <span>Python</span>
-                            <span>Django</span>
-                            <span>SQLite</span>
-                            <span>HTML</span>
-                            <span>CSS</span>
-                        </div>
-                        <a href="https://lupane-state-university-innovation-hub.onrender.com/" target="_blank" class="project-link">View project →</a>
-                    </div>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-copy">
+                <span class="eyebrow">// CIPHERCORE TECHNOLOGIES</span>
+                <h1>The core of your digital future, built on code you can trust.</h1>
+                <p class="subheadline">We design and build software solutions — from websites to management systems — for businesses and institutions ready to go digital.</p>
+                <div class="cta-row">
+                    <a href="contact.html" class="cta-button">Get a Free Quote</a>
+                    <a href="portfolio.html" class="cta-secondary">See our work →</a>
                 </div>
+            </div>
+            <div class="hero-graphic" aria-hidden="true">
+                <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="100" cy="100" r="70" stroke="#E1E4E9" stroke-width="1.5"/>
+                    <path d="M100 30 A70 70 0 0 1 100 170" stroke="#0B0D12" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M100 55 A45 45 0 0 1 100 145" stroke="#1D5FE0" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="100" cy="100" r="7" fill="#1D5FE0"/>
+                    <line x1="107" y1="100" x2="150" y2="100" stroke="#1D5FE0" stroke-width="2"/>
+                    <line x1="150" y1="100" x2="150" y2="80" stroke="#1D5FE0" stroke-width="2"/>
+                    <circle cx="150" cy="80" r="3" fill="#0B0D12"/>
+                    <line x1="130" y1="100" x2="130" y2="125" stroke="#1D5FE0" stroke-width="2"/>
+                    <circle cx="130" cy="125" r="3" fill="#0B0D12"/>
+                </svg>
             </div>
         </section>
 
         <div class="trace"><span></span><span></span><span></span></div>
 
-        <!-- Case Studies -->
-        <section class="case-studies">
+        <!-- Who We Are -->
+        <section class="who-we-are">
             <div class="section-inner">
-                <span class="section-label">02 — CASE STUDIES</span>
-                <h2>Client work in progress.</h2>
-                <p>We're currently building our first client case studies. If you're interested in being featured here, we'd love to work with you.</p>
-                <a href="contact.html" class="cta-link">Start a project →</a>
+                <div>
+                    <span class="section-label">01 — WHO WE ARE</span>
+                    <h2>Two developers, one standard.</h2>
+                </div>
+                <p>CipherCore Technologies is a software development company built by developers who understand what businesses actually need — reliable, functional, and affordable digital solutions. We're new, driven, and focused on getting it right.</p>
             </div>
         </section>
 
-        <!-- Technologies -->
-        <section class="technologies-section">
+        <!-- What We Do -->
+        <section class="what-we-do">
             <div class="section-inner">
-                <span class="section-label">03 — TECHNOLOGIES</span>
-                <h2>What we work with.</h2>
-                <div class="tech-grid">
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Flask</span>
-                    <span class="tech-tag">Django</span>
-                    <span class="tech-tag">JavaScript</span>
-                    <span class="tech-tag">HTML</span>
-                    <span class="tech-tag">CSS</span>
-                    <span class="tech-tag">MySQL</span>
-                    <span class="tech-tag">PostgreSQL</span>
-                    <span class="tech-tag">SQLite</span>
-                    <span class="tech-tag">Git</span>
-                    <span class="tech-tag">REST APIs</span>
+                <span class="section-label">02 — WHAT WE DO</span>
+                <h2>Where we can help</h2>
+                <div class="services-grid">
+                    <div class="service-item"><span class="tag">DEV</span>Web Development</div>
+                    <div class="service-item"><span class="tag">DEV</span>Custom Software</div>
+                    <div class="service-item"><span class="tag">SYSTEMS</span>School &amp; Business Portals</div>
+                    <div class="service-item"><span class="tag">SYSTEMS</span>Management Systems</div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section class="why-choose">
+            <div class="section-inner">
+                <span class="section-label">03 — WHY CIPHERCORE</span>
+                <h2>What working with us looks like</h2>
+                <div class="why-grid">
+                    <div class="why-item">
+                        <p>Affordable, tailored solutions — no bloated pricing</p>
+                    </div>
+                    <div class="why-item">
+                        <p>Direct communication with the people building your product</p>
+                    </div>
+                    <div class="why-item">
+                        <p>Modern, secure development practices</p>
+                    </div>
+                    <div class="why-item">
+                        <p>Fast turnaround for small-to-medium projects</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Closing CTA -->
+        <section class="closing-cta">
+            <div class="section-inner">
+                <div>
+                    <span class="section-label">GET STARTED</span>
+                    <h2>Have an idea? Let's build it together.</h2>
+                </div>
+                <a href="contact.html" class="cta-button">Contact Us</a>
             </div>
         </section>
     </main>
