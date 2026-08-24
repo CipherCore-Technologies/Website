@@ -315,25 +315,29 @@
             max-width: 50ch;
         }
 
-        /* ---------- Amazon-Style Product Carousel ---------- */
+        /* ---------- Product Carousel ---------- */
         .products-carousel {
             background: var(--paper-raised);
             border-top: 1px solid var(--line);
             border-bottom: 1px solid var(--line);
-            padding: 2rem 0;
+            overflow: hidden;
             position: relative;
         }
 
-        .carousel-container {
+        .carousel-wrapper {
             position: relative;
             overflow: hidden;
         }
 
         .carousel-track {
             display: flex;
-            gap: 1.5rem;
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            padding: 0.5rem 0;
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+
+        .carousel-track.paused {
+            transition: none;
         }
 
         .product-card {
@@ -343,7 +347,7 @@
             border-radius: 8px;
             padding: 1.5rem;
             transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-            min-height: 220px;
+            min-height: 200px;
             display: flex;
             flex-direction: column;
         }
@@ -398,7 +402,7 @@
             transform: translateX(4px);
         }
 
-        /* Carousel Controls - Amazon Style */
+        /* Carousel Controls */
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -439,7 +443,6 @@
             cursor: not-allowed;
         }
 
-        /* Carousel Indicators */
         .carousel-indicators {
             display: flex;
             justify-content: center;
@@ -604,7 +607,7 @@
             .product-card {
                 flex: 0 0 100%;
                 padding: 1.2rem;
-                min-height: 180px;
+                min-height: 160px;
             }
 
             .carousel-track {
@@ -659,6 +662,7 @@
             <a href="services.html">Services</a>
             <a href="products.html" class="active">Products</a>
             <a href="portfolio.html">Portfolio</a>
+            <a href="animations.html">Animations</a>
             <a href="contact.html">Contact</a>
         </nav>
 
@@ -680,6 +684,7 @@
         <a href="services.html">Services</a>
         <a href="products.html" class="active">Products</a>
         <a href="portfolio.html">Portfolio</a>
+        <a href="animations.html">Animations</a>
         <a href="contact.html">Contact</a>
     </nav>
 
@@ -694,7 +699,7 @@
 
         <div class="trace"><span></span><span></span><span></span></div>
 
-        <!-- Amazon-Style Product Carousel -->
+        <!-- Product Carousel -->
         <section class="products-carousel">
             <div class="section-inner">
                 <div class="carousel-container">
@@ -763,234 +768,4 @@
                 </div>
 
                 <!-- Dots -->
-                <div class="carousel-indicators" id="carouselDots"></div>
-            </div>
-        </section>
-
-        <div class="trace"><span></span><span></span><span></span></div>
-
-        <!-- Closing Note -->
-        <section class="closing-note">
-            <div class="section-inner">
-                <p>Don't see what you need? If it's practical software or network-related, chances are we can build it.</p>
-                <a href="contact.html" class="cta-link">Contact us →</a>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="blog.html">Blog</a>
-                <a href="faq.html">FAQ</a>
-                <a href="careers.html">Careers</a>
-                <a href="privacy and policy.html">Privacy Policy</a>
-            </div>
-            <span class="footer-bottom">© 2026 CipherCore Technologies</span>
-        </div>
-    </footer>
-
-    <script>
-        const hamburger = document.getElementById('hamburgerBtn');
-        const sideNav = document.getElementById('sideNav');
-        const overlay = document.getElementById('overlay');
-
-        function toggleMenu() {
-            hamburger.classList.toggle('open');
-            sideNav.classList.toggle('open');
-            overlay.classList.toggle('open');
-            document.body.style.overflow = sideNav.classList.contains('open') ? 'hidden' : '';
-        }
-
-        function closeMenu() {
-            hamburger.classList.remove('open');
-            sideNav.classList.remove('open');
-            overlay.classList.remove('open');
-            document.body.style.overflow = '';
-        }
-
-        hamburger.addEventListener('click', toggleMenu);
-        overlay.addEventListener('click', closeMenu);
-
-        document.querySelectorAll('.side-nav a').forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && sideNav.classList.contains('open')) {
-                closeMenu();
-            }
-        });
-
-        // ---------- Amazon-Style Carousel Logic ----------
-        const track = document.getElementById('carouselTrack');
-        const cards = track.querySelectorAll('.product-card');
-        const totalCards = cards.length;
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const dotsContainer = document.getElementById('carouselDots');
-
-        let currentIndex = 0;
-        let cardsPerView = 4;
-        let autoSlideInterval = null;
-        const autoSlideDelay = 4000;
-        let isPaused = false;
-
-        // Update cards per view based on screen width
-        function getCardsPerView() {
-            if (window.innerWidth < 560) return 1;
-            if (window.innerWidth < 860) return 2;
-            if (window.innerWidth < 1024) return 3;
-            return 4;
-        }
-
-        // Get gap from CSS
-        function getGap() {
-            if (window.innerWidth < 560) return 16;
-            if (window.innerWidth < 860) return 16;
-            if (window.innerWidth < 1024) return 16;
-            return 24;
-        }
-
-        // Update carousel position
-        function updateCarousel(animate = true) {
-            cardsPerView = getCardsPerView();
-            const gap = getGap();
-            const cardWidth = cards[0].offsetWidth;
-            const maxIndex = Math.max(0, totalCards - cardsPerView);
-
-            // Clamp index
-            if (currentIndex > maxIndex) currentIndex = maxIndex;
-            if (currentIndex < 0) currentIndex = 0;
-
-            const offset = currentIndex * (cardWidth + gap);
-            track.style.transform = `translateX(-${offset}px)`;
-
-            updateDots();
-            updateButtons();
-        }
-
-        // Update dots
-        function updateDots() {
-            const dots = document.querySelectorAll('.carousel-dot');
-            const maxIndex = Math.max(0, totalCards - cardsPerView);
-            const activeIndex = Math.min(currentIndex, maxIndex);
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === activeIndex);
-            });
-        }
-
-        // Update button states
-        function updateButtons() {
-            const maxIndex = Math.max(0, totalCards - cardsPerView);
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex >= maxIndex;
-        }
-
-        // Go to slide
-        function goToSlide(index) {
-            const maxIndex = Math.max(0, totalCards - cardsPerView);
-            if (index < 0) index = 0;
-            if (index > maxIndex) index = maxIndex;
-            currentIndex = index;
-            updateCarousel();
-        }
-
-        // Next slide
-        function nextSlide() {
-            const maxIndex = Math.max(0, totalCards - cardsPerView);
-            if (currentIndex < maxIndex) {
-                currentIndex++;
-            } else {
-                currentIndex = 0;
-            }
-            updateCarousel();
-        }
-
-        // Previous slide
-        function prevSlide() {
-            if (currentIndex > 0) {
-                currentIndex--;
-            } else {
-                const maxIndex = Math.max(0, totalCards - cardsPerView);
-                currentIndex = maxIndex;
-            }
-            updateCarousel();
-        }
-
-        // Create dots
-        function createDots() {
-            dotsContainer.innerHTML = '';
-            const maxIndex = Math.max(0, totalCards - cardsPerView);
-            for (let i = 0; i <= maxIndex; i++) {
-                const dot = document.createElement('button');
-                dot.className = 'carousel-dot';
-                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
-                dot.addEventListener('click', () => {
-                    goToSlide(i);
-                    resetAutoSlide();
-                });
-                dotsContainer.appendChild(dot);
-            }
-            updateDots();
-        }
-
-        // Auto-slide
-        function startAutoSlide() {
-            if (autoSlideInterval) {
-                clearInterval(autoSlideInterval);
-            }
-            autoSlideInterval = setInterval(() => {
-                if (!isPaused) {
-                    nextSlide();
-                }
-            }, autoSlideDelay);
-        }
-
-        function resetAutoSlide() {
-            startAutoSlide();
-        }
-
-        // Event listeners
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            resetAutoSlide();
-        });
-
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
-            resetAutoSlide();
-        });
-
-        // Pause on hover
-        const carouselContainer = document.querySelector('.carousel-container');
-        carouselContainer.addEventListener('mouseenter', () => {
-            isPaused = true;
-        });
-        carouselContainer.addEventListener('mouseleave', () => {
-            isPaused = false;
-        });
-
-        // Handle resize
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                createDots();
-                // Ensure currentIndex is valid after resize
-                const maxIndex = Math.max(0, totalCards - getCardsPerView());
-                if (currentIndex > maxIndex) currentIndex = maxIndex;
-                updateCarousel();
-            }, 250);
-        });
-
-        // Initialize
-        createDots();
-        setTimeout(() => {
-            updateCarousel();
-            startAutoSlide();
-        }, 100);
-    </script>
-</body>
-</html>
+                <
