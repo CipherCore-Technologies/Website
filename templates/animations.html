@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CipherCore Animations — CipherCore Technologies</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0B0D12;
+            --ink-soft: #4B5566;
+            --paper: #F6F7F9;
+            --paper-raised: #FFFFFF;
+            --line: #E1E4E9;
+            --blue: #1D5FE0;
+            --blue-deep: #0D2E73;
+            --mono: 'IBM Plex Mono', monospace;
+            --display: 'Space Grotesk', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--body);
+            background-color: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--blue);
+            outline-offset: 3px;
+        }
+
+        section {
+            padding: 4.5rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 1.5px;
+            color: var(--blue);
+            margin-bottom: 0.8rem;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--display);
+        }
+
+        /* ---------- Header ---------- */
+        header {
+            background: var(--ink);
+            color: #ffffff;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .companynamelogo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0.9rem 0;
+        }
+
+        #logo {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #6FA8FF;
+            box-shadow: 0 0 20px rgba(111, 168, 255, 0.3);
+        }
+
+        .brand-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.15;
+        }
+
+        .brand-row {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            font-family: var(--display);
+        }
+
+        .brand-row .cipher {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .brand-row .core {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6FA8FF;
+        }
+
+        .technologies {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            color: #8A93A3;
+            letter-spacing: 2.5px;
+            margin-top: 2px;
+        }
+
+        /* ---------- Navigation (Desktop) ---------- */
+        .navigation {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .navigation a {
+            color: #C4C9D4;
+            text-decoration: none;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.2px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .navigation a:hover {
+            color: #FFFFFF;
+            border-bottom-color: #6FA8FF;
+        }
+
+        .navigation a.active {
+            color: #FFFFFF;
+            border-bottom-color: #6FA8FF;
+        }
+
+        /* ---------- Hamburger Button ---------- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 200;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: #FFFFFF;
+            transition: 0.3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* ---------- Side Navigation (Mobile) ---------- */
+        .side-nav {
+            position: fixed;
+            top: 0;
+            right: -280px;
+            width: 280px;
+            height: 100vh;
+            background: var(--ink);
+            padding: 5rem 2rem 2rem;
+            transition: right 0.3s ease;
+            z-index: 150;
+            overflow-y: auto;
+            border-left: 1px solid #262B36;
+        }
+
+        .side-nav.open {
+            right: 0;
+        }
+
+        .side-nav a {
+            display: block;
+            color: #C4C9D4;
+            text-decoration: none;
+            padding: 12px 0;
+            font-size: 1rem;
+            font-weight: 500;
+            border-bottom: 1px solid #262B36;
+            transition: color 0.2s ease;
+        }
+
+        .side-nav a:hover {
+            color: #6FA8FF;
+        }
+
+        .side-nav a.active {
+            color: #6FA8FF;
+        }
+
+        /* ---------- Overlay ---------- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 140;
+        }
+
+        .overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ---------- Trace divider ---------- */
+        .trace {
+            height: 2px;
+            background: var(--ink);
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .trace::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1px;
+            background: var(--line);
+        }
+
+        .trace span {
+            position: relative;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--blue);
+        }
+
+        /* ---------- Animations Hero ---------- */
+        .animations-hero {
+            text-align: center;
+            padding: 4.5rem 2rem 3rem;
+        }
+
+        .animations-hero .eyebrow {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: var(--blue);
+            margin-bottom: 1rem;
+        }
+
+        .animations-hero h1 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            max-width: 760px;
+            margin: 0 auto 1rem;
+        }
+
+        .animations-hero .subheadline {
+            max-width: 620px;
+            margin: 0 auto;
+            color: var(--ink-soft);
+            font-size: 1.05rem;
+        }
+
+        /* ---------- Category Grid ---------- */
+        .categories .section-inner > h2 {
+            font-size: 1.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.2rem;
+        }
+
+        .category-card {
+            background: var(--paper-raised);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 1.6rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            text-align: left;
+            width: 100%;
+            font-family: var(--body);
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--blue);
+            box-shadow: 0 10px 24px rgba(29, 95, 224, 0.08);
+        }
+
+        .category-card.active {
+            border-color: var(--blue);
+            box-shadow: 0 10px 24px rgba(29, 95, 224, 0.12);
+        }
+
+        .category-icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 0.7rem;
+        }
+
+        .category-card h3 {
+            font-size: 1.08rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .category-card p {
+            font-size: 0.92rem;
+            color: var(--ink-soft);
+        }
+
+        .category-card .view-link {
+            display: inline-block;
+            margin-top: 0.7rem;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+            color: var(--blue);
+        }
+
+        /* ---------- Video Library ---------- */
+        .video-library {
+            background: var(--paper-raised);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .video-library-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .video-library-header h2 {
+            font-size: 1.9rem;
+        }
+
+        #currentFilterLabel {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            color: var(--blue);
+        }
+
+        .clear-filter {
+            display: none;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--ink-soft);
+            background: none;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .clear-filter:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .clear-filter.visible {
+            display: inline-block;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.4rem;
+        }
+
+        .video-card {
+            display: block;
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--ink);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--blue);
+            box-shadow: 0 10px 24px rgba(29, 95, 224, 0.1);
+        }
+
+        .video-thumb {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, var(--ink) 0%, var(--blue-deep) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .thumb-preview {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .thumb-preview.loaded {
+            opacity: 0.9;
+        }
+
+        .video-thumb.playable {
+            cursor: pointer;
+        }
+
+        .video-thumb.playable:hover .play-icon {
+            transform: scale(1.08);
+        }
+
+        .video-thumb .play-icon {
+            position: relative;
+            z-index: 1;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .video-thumb .play-icon::before {
+            content: '';
+            border-style: solid;
+            border-width: 8px 0 8px 13px;
+            border-color: transparent transparent transparent var(--ink);
+            margin-left: 3px;
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            z-index: 1;
+            background: rgba(11, 13, 18, 0.85);
+            color: #fff;
+            font-family: var(--mono);
+            font-size: 0.68rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .video-info {
+            padding: 1rem 1.1rem 1.2rem;
+        }
+
+        .video-tag {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.5px;
+            color: var(--blue);
+            margin-bottom: 0.4rem;
+        }
+
+        .video-info h3 {
+            font-size: 0.98rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .video-info p {
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+        }
+
+        .video-card.is-series .video-thumb {
+            background: linear-gradient(135deg, var(--blue-deep) 0%, var(--ink) 100%);
+        }
+
+        .parts-badge {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            z-index: 1;
+            background: rgba(11, 13, 18, 0.85);
+            color: #fff;
+            font-family: var(--mono);
+            font-size: 0.66rem;
+            letter-spacing: 0.3px;
+            padding: 3px 7px;
+            border-radius: 4px;
+        }
+
+        .video-watch-link {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        .video-watch-link.playable {
+            color: var(--blue);
+            cursor: pointer;
+        }
+
+        .video-watch-link.unavailable {
+            color: var(--ink-soft);
+            opacity: 0.75;
+        }
+
+        .series-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 0.6rem;
+            background: none;
+            border: none;
+            padding: 0;
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--blue);
+            cursor: pointer;
+        }
+
+        .series-toggle .arrow {
+            display: inline-block;
+            transition: transform 0.2s ease;
+            font-size: 0.7rem;
+        }
+
+        .series-toggle.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .series-parts {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s ease;
+        }
+
+        .series-parts.open {
+            max-height: 600px;
+            margin-top: 0.7rem;
+        }
+
+        .series-part {
+            display: flex;
+            align-items: baseline;
+            gap: 0.6rem;
+            padding: 0.55rem 0;
+            border-top: 1px solid var(--line);
+            color: var(--ink);
+        }
+
+        .series-part.playable {
+            cursor: pointer;
+        }
+
+        .series-part.playable:hover .part-title {
+            color: var(--blue);
+        }
+
+        .series-part.unavailable {
+            opacity: 0.6;
+        }
+
+        .part-num {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--blue);
+            white-space: nowrap;
+        }
+
+        .part-title {
+            font-size: 0.85rem;
+            font-weight: 500;
+            flex: 1;
+            transition: color 0.2s ease;
+        }
+
+        .part-duration {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--ink-soft);
+            white-space: nowrap;
+        }
+
+        .no-videos {
+            text-align: center;
+            color: var(--ink-soft);
+            padding: 2.5rem 0;
+            display: none;
+        }
+
+        .no-videos.visible {
+            display: block;
+        }
+
+        /* ---------- Video Modal Player ---------- */
+        .video-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(11, 13, 18, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 300;
+        }
+
+        .video-modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .video-modal {
+            position: relative;
+            width: 100%;
+            max-width: 860px;
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: -42px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.3rem;
+            line-height: 1;
+            cursor: pointer;
+            padding: 6px;
+        }
+
+        .video-modal-player-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #videoModalPlayer {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .video-modal-title {
+            color: #ffffff;
+            font-family: var(--body);
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 0.9rem;
+        }
+
+        .video-modal-title.error {
+            color: #FF8A8A;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+        }
+
+        /* ---------- How It Works ---------- */
+        .process-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .process-item {
+            display: flex;
+            gap: 1.2rem;
+            align-items: baseline;
+            padding: 1.1rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .process-item:last-child {
+            border-bottom: none;
+        }
+
+        .process-number {
+            font-family: var(--mono);
+            color: var(--blue);
+            font-size: 0.9rem;
+            min-width: 28px;
+        }
+
+        .process-item h3 {
+            font-size: 1.02rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .process-item p {
+            color: var(--ink-soft);
+            font-size: 0.92rem;
+        }
+
+        /* ---------- Closing Note ---------- */
+        .closing-note {
+            text-align: center;
+        }
+
+        .closing-note .section-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cta-link,
+        .cta-button {
+            display: inline-block;
+            background: var(--ink);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.85rem 1.7rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s ease;
+        }
+
+        .cta-button:hover,
+        .cta-link:hover {
+            background: var(--blue-deep);
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background: var(--ink);
+            color: #C4C9D4;
+            padding: 2rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #C4C9D4;
+            text-decoration: none;
+            font-size: 0.88rem;
+        }
+
+        .footer-links a:hover {
+            color: #6FA8FF;
+        }
+
+        .footer-bottom {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: #8A93A3;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 860px) {
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navigation {
+                display: none;
+            }
+        }
+
+        @media (max-width: 560px) {
+            header {
+                padding: 0 1.2rem;
+            }
+
+            .companynamelogo {
+                align-self: flex-start;
+            }
+
+            section {
+                padding: 2.5rem 1.2rem;
+            }
+
+            .animations-hero h1 {
+                font-size: 1.9rem;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-library-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .side-nav {
+                width: 240px;
+                right: -240px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="companynamelogo">
+            <img src="static/images/ciphercore-logo.jpeg"
+                 id="logo"
+                 alt="CipherCore Technologies logo"
+                 onerror="this.src='https://via.placeholder.com/50/0B0D12/6FA8FF?text=CC'">
+            <div class="brand-wrapper">
+                <div class="brand-row">
+                    <span class="cipher">Cipher</span><span class="core">Core</span>
+                </div>
+                <span class="technologies">TECHNOLOGIES</span>
+            </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="animations.html" class="active">Animations</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Hamburger Button -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Side Navigation -->
+    <nav class="side-nav" id="sideNav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="products.html">Products</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="animations.html" class="active">Animations</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="trace"><span></span><span></span><span></span></div>
+
+    <main>
+        <!-- Animations Hero -->
+        <section class="animations-hero">
+            <span class="eyebrow">// CIPHERCORE ANIMATIONS</span>
+            <h1>Tech, explained in motion.</h1>
+            <p class="subheadline">Animated explainers, tutorials, and demos that break down complex technology into something anyone can follow — built for video and social.</p>
+        </section>
+
+        <div class="trace"><span></span><span></span><span></span></div>
+
+        <!-- Category Grid -->
+        <section class="categories">
+            <div class="section-inner">
+                <span class="section-label">01 — WHAT WE COVER</span>
+                <h2>Content categories</h2>
+                <div class="category-grid" id="categoryGrid">
+                    <button class="category-card" data-category="tech-explainers" onclick="filterVideos('tech-explainers')">
+                        <span class="category-icon">🎬</span>
+                        <h3>Tech Explainers</h3>
+                        <p>Breaking down how everyday technology actually works, in plain language.</p>
+                        <span class="view-link">View videos →</span>
+                    </button>
+                    <button class="category-card" data-category="ai-ml" onclick="filterVideos('ai-ml')">
+                        <span class="category-icon">🤖</span>
+                        <h3>AI &amp; Machine Learning</h3>
+                        <p>Animated walkthroughs of AI concepts, models, and real-world use cases.</p>
+                        <span class="view-link">View videos →</span>
+                    </button>
+                    <button class="category-card" data-category="cybersecurity" onclick="filterVideos('cybersecurity')">
+                        <span class="category-icon">🔐</span>
+                        <h3>Cybersecurity</h3>
+                        <p>Visualizing threats, defenses, and best practices for staying secure online.</p>
+                        <span class="view-link">View videos →</span>
+                    </button>
+                    <button class="category-card" data-category="programming" onclick="filterVideos('programming')">
+                        <span class="category-icon">💻</span>
+                        <h3>Programming</h3>
+                        <p>Coding concepts, languages, and workflows explained step by step.</p>
+                        <span class="view-link">View videos →</span>
+                    </button>
+                    <button class="category-card" data-category="networking" onclick="filterVideos('networking')">
+                        <span class="category-icon">🌐</span>
+                        <h3>Networking</h3>
+                        <p>How devices, servers, and the internet talk to each other, made visual.</p>
+                        <span class="view-link">View videos →</span>
+                    </button>
+                    <button class="category-card" data-category="future-tech" onclick="filterVideos('future-tech')">
+                        <span class="category-icon">📱</span>
+                        <h3>Future Technology</h3>
+                        <p>Emerging tech trends and what they mean, before they hit the mainstream.</p>
+                        <span class="view-link">View videos →</span>
+                    </button>
+                    <button class="category-card" data-category="how-tech-works" onclick="filterVideos('how-tech-works')">
+                        <span class="category-icon">⚙️</span>
+                        <h3>How Technology Works</h3>
+                        <p>Under-the-hood looks at the systems and hardware that power daily life.</p>
+                        <span class="view-link">View videos →</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div class="trace"><span></span><span></span><span></span></div>
+
+        <!-- Video Library -->
+        <section class="video-library" id="videoLibrary">
+            <div class="section-inner">
+                <span class="section-label">02 — WATCH</span>
+                <div class="video-library-header">
+                    <h2>Video library</h2>
+                    <div>
+                        <span id="currentFilterLabel"></span>
+                        <button class="clear-filter" id="clearFilterBtn" onclick="filterVideos('all')">Show all ✕</button>
+                    </div>
+                </div>
+                <div class="video-grid" id="videoGrid"></div>
+                <p class="no-videos" id="noVideosMsg">No videos in this category yet — check back soon.</p>
+            </div>
+        </section>
+
+        <div class="trace"><span></span><span></span><span></span></div>
+
+        <!-- How It Works -->
+        <section class="how-it-works">
+            <div class="section-inner">
+                <span class="section-label">03 — HOW IT WORKS</span>
+                <h2>From concept to clip</h2>
+                <div class="process-list">
+                    <div class="process-item">
+                        <span class="process-number">01</span>
+                        <div>
+                            <h3>We pick the topic</h3>
+                            <p>A tech concept worth explaining — from AI to networking to cybersecurity.</p>
+                        </div>
+                    </div>
+                    <div class="process-item">
+                        <span class="process-number">02</span>
+                        <div>
+                            <h3>We script it simply</h3>
+                            <p>Complex ideas rewritten in plain, easy-to-follow language.</p>
+                        </div>
+                    </div>
+                    <div class="process-item">
+                        <span class="process-number">03</span>
+                        <div>
+                            <h3>We animate it</h3>
+                            <p>Motion graphics bring the explanation to life, built for short-form video.</p>
+                        </div>
+                    </div>
+                    <div class="process-item">
+                        <span class="process-number">04</span>
+                        <div>
+                            <h3>We publish it</h3>
+                            <p>Ready for social, tutorials, and demos wherever your audience watches.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Closing Note -->
+        <section class="closing-note">
+            <div class="section-inner">
+                <h2>Want an animated explainer of your own?</h2>
+                <a href="contact.html" class="cta-button">Get in touch →</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="blog.html">Blog</a>
+                <a href="faq.html">FAQ</a>
+                <a href="careers.html">Careers</a>
+                <a href="privacy and policy.html">Privacy Policy</a>
+            </div>
+            <span class="footer-bottom">© 2026 CipherCore Technologies</span>
+        </div>
+    </footer>
+
+    <!-- Video Modal Player -->
+    <div class="video-modal-overlay" id="videoModalOverlay">
+        <div class="video-modal">
+            <button class="video-modal-close" id="videoModalClose" aria-label="Close video">✕ Close</button>
+            <div class="video-modal-player-wrap">
+                <video id="videoModalPlayer" controls playsinline></video>
+            </div>
+            <p class="video-modal-title" id="videoModalTitle"></p>
+        </div>
+    </div>
+
+    <script>
+        /* ---------------------------------------------------------------
+           Video data — edit this list to add, remove, or relink videos.
+           category must match a data-category value on a .category-card.
+
+           Two shapes are supported everywhere — every category can use
+           either, and can mix both:
+           1. A standalone video — just give it a `duration` and `url`.
+           2. A multi-part series — give it a `parts` array instead, where
+              each part has its own title, duration, and url. Parts are
+              shown in the order listed (Part 1, Part 2, ...) and expand
+              inline when the card is clicked. Use this whenever a topic
+              is naturally split into episodes, like "Part 1: Variables"
+              and "Part 2: Data Types" under Programming.
+
+           nextSample() cycles through a handful of freely-licensed public
+           clips (Google's test video bucket) so every series and several
+           standalone videos actually play when clicked — useful for
+           previewing the feature before your real footage is ready. Swap
+           any `url` for your own finished clip when it's ready; entries
+           still set to '#' show as "Coming soon" until you add one.
+        ----------------------------------------------------------------*/
+        const SAMPLE = 'https://storage.googleapis.com/gtv-videos-bucket/sample/';
+        const SAMPLE_FILES = [
+            'BigBuckBunny.mp4', 'ElephantsDream.mp4', 'ForBiggerBlazes.mp4',
+            'ForBiggerEscapes.mp4', 'ForBiggerFun.mp4', 'ForBiggerJoyrides.mp4',
+            'ForBiggerMeltdowns.mp4', 'Sintel.mp4', 'SubaruOutbackOnStreetAndDirt.mp4',
+            'TearsOfSteel.mp4', 'VolkswagenGTIReview.mp4', 'WeAreGoingOnBullrun.mp4',
+            'WhatCarCanYouGetForAGrand.mp4'
+        ];
+        let sampleIndex = 0;
+        function nextSample() {
+            const file = SAMPLE_FILES[sampleIndex % SAMPLE_FILES.length];
+            sampleIndex++;
+            return SAMPLE + file;
+        }
+
+        const videos = [
+            { category: 'tech-explainers', title: 'How Wi-Fi Actually Works', duration: '4:12', description: 'From router to device in under five minutes.', url: nextSample() },
+            {
+                category: 'tech-explainers',
+                title: 'What Happens When You Google Something',
+                description: 'A three-part look at what happens the instant you hit search.',
+                parts: [
+                    { title: 'Typing and Autocomplete', duration: '2:15', url: nextSample() },
+                    { title: 'Crawling and Indexing', duration: '3:40', url: nextSample() },
+                    { title: 'Ranking and Results', duration: '3:05', url: nextSample() }
+                ]
+            },
+            { category: 'tech-explainers', title: 'Inside a Smartphone', duration: '6:40', description: 'The components that make your phone work.', url: '#' },
+
+            { category: 'ai-ml', title: 'Neural Networks in 3 Minutes', duration: '3:00', description: 'The building blocks of modern AI, visualized.', url: nextSample() },
+            {
+                category: 'ai-ml',
+                title: 'How ChatGPT-Style Models Work',
+                description: 'A short series breaking down large language models from the ground up.',
+                parts: [
+                    { title: 'Tokens and Embeddings', duration: '4:20', url: nextSample() },
+                    { title: 'Attention, Explained Visually', duration: '5:45', url: nextSample() },
+                    { title: 'From Training to a Chat Reply', duration: '6:10', url: nextSample() }
+                ]
+            },
+            { category: 'ai-ml', title: 'Machine Learning vs. AI', duration: '4:28', description: 'Clearing up the most confused terms in tech.', url: '#' },
+
+            {
+                category: 'cybersecurity',
+                title: 'Anatomy of a Phishing Attack',
+                description: 'How a phishing attempt unfolds, from first contact to payoff.',
+                parts: [
+                    { title: 'The Bait: Crafting the Message', duration: '2:50', url: nextSample() },
+                    { title: 'The Hook: What Happens If You Click', duration: '3:15', url: nextSample() }
+                ]
+            },
+            { category: 'cybersecurity', title: 'What Is a Firewall, Really?', duration: '4:02', description: 'The gatekeeper of your network, explained.', url: '#' },
+            { category: 'cybersecurity', title: 'Password Security Basics', duration: '3:47', description: 'Why "P@ssw0rd123" still isn\'t safe.', url: '#' },
+
+            {
+                category: 'programming',
+                title: 'Python Programming Basics',
+                description: 'A beginner series covering Python fundamentals, one concept at a time.',
+                parts: [
+                    { title: 'What Are Variables?', duration: '4:12', url: nextSample() },
+                    { title: 'Data Types Explained', duration: '5:00', url: nextSample() },
+                    { title: 'Lists and Loops', duration: '6:10', url: nextSample() },
+                    { title: 'Writing Your First Function', duration: '5:30', url: nextSample() }
+                ]
+            },
+            { category: 'programming', title: 'What Is an API?', duration: '4:50', description: 'How apps talk to each other, visualized.', url: '#' },
+            { category: 'programming', title: 'Compilers vs. Interpreters', duration: '5:20', description: 'What actually happens when you run code.', url: '#' },
+            { category: 'programming', title: 'Git Branching Explained', duration: '6:05', description: 'Merge, rebase, and branch — animated.', url: '#' },
+
+            {
+                category: 'networking',
+                title: 'How the Internet Actually Works',
+                description: 'The full round trip a request makes, broken into three stops.',
+                parts: [
+                    { title: 'Your Device to the Router', duration: '2:40', url: nextSample() },
+                    { title: 'Through the ISP and Backbone', duration: '3:10', url: nextSample() },
+                    { title: 'Reaching the Server and Back', duration: '2:50', url: nextSample() }
+                ]
+            },
+            { category: 'networking', title: 'DNS Explained Simply', duration: '4:33', description: 'The internet\'s phonebook, broken down.', url: '#' },
+            { category: 'networking', title: 'What Is a VPN?', duration: '4:15', description: 'Encrypted tunnels, demystified.', url: '#' },
+
+            {
+                category: 'future-tech',
+                title: 'Quantum Computing, Simplified',
+                description: 'Qubits and superposition, broken into three digestible parts.',
+                parts: [
+                    { title: 'What Is a Qubit?', duration: '2:30', url: nextSample() },
+                    { title: 'Superposition and Entanglement', duration: '3:20', url: nextSample() },
+                    { title: 'Real-World Quantum Uses', duration: '3:00', url: nextSample() }
+                ]
+            },
+            { category: 'future-tech', title: 'The Rise of Edge Computing', duration: '4:40', description: 'Why processing is moving closer to you.', url: '#' },
+            { category: 'future-tech', title: 'What Comes After 5G?', duration: '5:10', description: 'A look at what\'s next in connectivity.', url: '#' },
+
+            {
+                category: 'how-tech-works',
+                title: 'How a CPU Processes Instructions',
+                description: 'The fetch-decode-execute cycle, one stage at a time.',
+                parts: [
+                    { title: 'Fetch', duration: '2:10', url: nextSample() },
+                    { title: 'Decode', duration: '2:25', url: nextSample() },
+                    { title: 'Execute', duration: '2:35', url: nextSample() }
+                ]
+            },
+            { category: 'how-tech-works', title: 'How Data Is Stored on a Hard Drive', duration: '5:18', description: 'Spinning platters and magnetic bits explained.', url: '#' },
+            { category: 'how-tech-works', title: 'How Batteries Charge and Discharge', duration: '4:55', description: 'The chemistry behind everyday power.', url: '#' }
+        ];
+
+        const categoryNames = {
+            'tech-explainers': 'Tech Explainers',
+            'ai-ml': 'AI & Machine Learning',
+            'cybersecurity': 'Cybersecurity',
+            'programming': 'Programming',
+            'networking': 'Networking',
+            'future-tech': 'Future Technology',
+            'how-tech-works': 'How Technology Works'
+        };
+
+        const videoGrid = document.getElementById('videoGrid');
+        const noVideosMsg = document.getElementById('noVideosMsg');
+        const currentFilterLabel = document.getElementById('currentFilterLabel');
+        const clearFilterBtn = document.getElementById('clearFilterBtn');
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        function escapeAttr(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function renderVideos(category) {
+            const list = category === 'all'
+                ? videos
+                : videos.filter(v => v.category === category);
+
+            videoGrid.innerHTML = list.map((v, i) => {
+                const isSeries = Array.isArray(v.parts);
+                const thumbBadge = isSeries
+                    ? `<span class="parts-badge">${v.parts.length} parts</span>`
+                    : `<span class="video-duration">${v.duration}</span>`;
+
+                let bottom;
+                if (isSeries) {
+                    bottom = `<button class="series-toggle" onclick="toggleSeries(${i}, event)">
+                                   <span class="arrow">▾</span> View ${v.parts.length} parts
+                               </button>
+                               <div class="series-parts" id="series-${i}">
+                                   ${v.parts.map((p, pi) => {
+                                       const playable = p.url && p.url !== '#';
+                                       return `
+                                           <div class="series-part${playable ? ' playable' : ' unavailable'}"
+                                                ${playable ? `data-url="${escapeAttr(p.url)}" data-title="${escapeAttr(v.title + ' — Part ' + (pi + 1) + ': ' + p.title)}"` : ''}>
+                                               <span class="part-num">Part ${pi + 1}</span>
+                                               <span class="part-title">${p.title}</span>
+                                               <span class="part-duration">${playable ? p.duration : 'Coming soon'}</span>
+                                           </div>
+                                       `;
+                                   }).join('')}
+                               </div>`;
+                } else {
+                    const playable = v.url && v.url !== '#';
+                    bottom = playable
+                        ? `<button class="video-watch-link playable" data-url="${escapeAttr(v.url)}" data-title="${escapeAttr(v.title)}">Watch →</button>`
+                        : `<span class="video-watch-link unavailable">Coming soon</span>`;
+                }
+
+                // The clip used for the little looping preview in the thumbnail —
+                // the video itself for a standalone entry, or Part 1's clip for a series.
+                const previewUrl = isSeries
+                    ? (v.parts[0] && v.parts[0].url && v.parts[0].url !== '#' ? v.parts[0].url : null)
+                    : (v.url && v.url !== '#' ? v.url : null);
+
+                const thumbPlayable = !isSeries && v.url && v.url !== '#';
+                let thumbAttrs = '';
+                if (isSeries) {
+                    thumbAttrs = ` onclick="toggleSeries(${i}, event)"`;
+                } else if (thumbPlayable) {
+                    thumbAttrs = ` data-url="${escapeAttr(v.url)}" data-title="${escapeAttr(v.title)}"`;
+                }
+
+                const previewEl = previewUrl
+                    ? `<video class="thumb-preview" src="${escapeAttr(previewUrl)}" muted autoplay loop playsinline preload="metadata"
+                              onloadeddata="this.classList.add('loaded')" onerror="this.remove()"></video>`
+                    : '';
+
+                return `
+                    <div class="video-card${isSeries ? ' is-series' : ''}">
+                        <div class="video-thumb${thumbPlayable ? ' playable' : ''}"${thumbAttrs}>
+                            ${previewEl}
+                            <span class="play-icon"></span>
+                            ${thumbBadge}
+                        </div>
+                        <div class="video-info">
+                            <span class="video-tag">${categoryNames[v.category]}</span>
+                            <h3>${v.title}</h3>
+                            <p>${v.description}</p>
+                            ${bottom}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            noVideosMsg.classList.toggle('visible', list.length === 0);
+        }
+
+        function toggleSeries(index, event) {
+            if (event) event.stopPropagation();
+            const partsEl = document.getElementById(`series-${index}`);
+            const toggleBtn = partsEl.previousElementSibling;
+            partsEl.classList.toggle('open');
+            toggleBtn.classList.toggle('open');
+        }
+
+        // Play a video in the modal when any playable thumb/button/part is clicked
+        videoGrid.addEventListener('click', (e) => {
+            const target = e.target.closest('[data-url]');
+            if (!target) return;
+            playVideo(target.dataset.url, target.dataset.title);
+        });
+
+        // ---------- Video modal player ----------
+        const videoModalOverlay = document.getElementById('videoModalOverlay');
+        const videoModalPlayer = document.getElementById('videoModalPlayer');
+        const videoModalTitle = document.getElementById('videoModalTitle');
+        const videoModalClose = document.getElementById('videoModalClose');
+
+        function playVideo(url, title) {
+            videoModalTitle.textContent = title;
+            videoModalTitle.classList.remove('error');
+            videoModalPlayer.style.display = 'block';
+            videoModalPlayer.src = url;
+            videoModalOverlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            videoModalPlayer.play().catch(() => {});
+        }
+
+        videoModalPlayer.addEventListener('error', () => {
+            if (!videoModalOverlay.classList.contains('open')) return;
+            videoModalPlayer.style.display = 'none';
+            videoModalTitle.textContent = 'This clip couldn\'t load — check your connection or try again.';
+            videoModalTitle.classList.add('error');
+        });
+
+        function closeVideoModal() {
+            videoModalOverlay.classList.remove('open');
+            videoModalPlayer.pause();
+            videoModalPlayer.removeAttribute('src');
+            videoModalPlayer.load();
+            document.body.style.overflow = '';
+        }
+
+        videoModalClose.addEventListener('click', closeVideoModal);
+        videoModalOverlay.addEventListener('click', (e) => {
+            if (e.target === videoModalOverlay) closeVideoModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoModalOverlay.classList.contains('open')) {
+                closeVideoModal();
+            }
+        });
+
+        function filterVideos(category) {
+            categoryCards.forEach(card => {
+                card.classList.toggle('active', card.dataset.category === category);
+            });
+
+            if (category === 'all') {
+                currentFilterLabel.textContent = '';
+                clearFilterBtn.classList.remove('visible');
+            } else {
+                currentFilterLabel.textContent = `Showing: ${categoryNames[category]}`;
+                clearFilterBtn.classList.add('visible');
+            }
+
+            renderVideos(category);
+            document.getElementById('videoLibrary').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Initial render — show everything until a category is chosen
+        renderVideos('all');
+
+        const hamburger = document.getElementById('hamburgerBtn');
+        const sideNav = document.getElementById('sideNav');
+        const overlay = document.getElementById('overlay');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('open');
+            sideNav.classList.toggle('open');
+            overlay.classList.toggle('open');
+            document.body.style.overflow = sideNav.classList.contains('open') ? 'hidden' : '';
+        }
+
+        function closeMenu() {
+            hamburger.classList.remove('open');
+            sideNav.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.side-nav a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && sideNav.classList.contains('open')) {
+                closeMenu();
+            }
+        });
+    </script>
+</body>
+</html>
